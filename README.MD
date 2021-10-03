@@ -2,6 +2,8 @@
 
 # Tailwind CSS Builder
 
+[Start Using!](https://tailwindcss-builder.vercel.app/)
+
 ## What?
 
 A compiler where you send the Tailwind [configuration file](https://tailwindcss.com/docs/configuration) and returns a
