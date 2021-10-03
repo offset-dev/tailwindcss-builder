@@ -8,21 +8,24 @@
   },
   "dependencies": {
     "ace-builds": "^1.4.13",
+    "autoprefixer": "^10.2.6",
+    "axios": "^0.22.0",
+    "cssnano": "^5.0.8",
     "next": "latest",
+    "postcss": "^8.3.5",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-ace": "^9.4.4",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "tailwindcss": "^2.2.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "autoprefixer": "^10.2.6",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "eslint-config-prettier": "7.2.0",
     "eslint-plugin-prettier": "4.0.0",
-    "postcss": "^8.3.5",
-    "prettier": "2.4.1",
-    "tailwindcss": "^2.2.4"
+    "prettier": "2.4.1"
   },
   "prettier": {
     "trailingComma": "es5",
