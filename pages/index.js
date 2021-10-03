@@ -40,6 +40,9 @@ const Home = () => {
 			<div className={"container"}>
 				<div className={"text-center"}>
 					<Image alt={"Tailwind CSS Builder"} className={"block"} height={180} src={"/logo.png"} width={500} />
+					<a className={"block"} href={"http://github.com/offset-dev/tailwindcss-builder"} rel={"noreferrer"} target={"_blank"}>
+						<Image alt={"Github"} height={20} src={"https://img.shields.io/github/stars/offset-dev/tailwindcss-builder?style=social"} width={72} />
+					</a>
 				</div>
 
 				{alert && <Alert onClose={() => setAlert(null)} text={alert.text} type={alert.type} />}
