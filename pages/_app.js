@@ -1,7 +1,13 @@
-import 'tailwindcss/tailwind.css'
+import propTypes from "prop-types";
+import "tailwindcss/tailwind.css";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+	return <Component {...pageProps} />;
 }
 
-export default MyApp
+MyApp.propTypes = {
+	Component: propTypes.node,
+	pageProps: propTypes.object,
+};
+
+export default MyApp;

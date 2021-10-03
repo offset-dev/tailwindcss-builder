@@ -2,17 +2,32 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "lint": "next lint --no-cache",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
     "next": "latest",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.2.6",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2",
+    "eslint-config-prettier": "7.2.0",
+    "eslint-plugin-prettier": "4.0.0",
     "postcss": "^8.3.5",
+    "prettier": "2.4.1",
     "tailwindcss": "^2.2.4"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 4,
+    "printWidth": 160,
+    "semi": true,
+    "useTabs": true,
+    "arrowParens": "avoid"
   }
 }
