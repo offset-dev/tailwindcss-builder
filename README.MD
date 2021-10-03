@@ -1,4 +1,4 @@
-![Logo](./TailwindBuilder.png)
+![Logo](public/logo.png)
 
 # Tailwind CSS Builder
 

@@ -1,65 +1,71 @@
+import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 
-export default function Home() {
+import Alert from "../components/Alert";
+import Button from "../components/Button";
+import defaultConfig from "../constants/default-config";
+
+const Editor = dynamic(() => import("../components/Editor"), { ssr: false });
+
+const Home = () => {
+	const [loading, setLoading] = useState(false);
+	const [alert, setAlert] = useState(null);
+	const [config, setConfig] = useState(defaultConfig);
+	const [result, setResult] = useState(null);
+
+	const process = () => {
+		setAlert(false);
+		setLoading(true);
+
+		window.setTimeout(() => {
+			setLoading(false);
+			setResult("RESULTS");
+		}, 3000);
+	};
+
 	return (
-		<div className="flex flex-col items-center justify-center min-h-screen py-2">
+		<div>
 			<Head>
-				<title>Create Next App</title>
-				<link href="/favicon.ico" rel="icon" />
+				<title>Tailwind CSS Builder</title>
+				<link href={"/favicon.png"} rel="icon" />
 			</Head>
 
-			<main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-				<h1 className="text-6xl font-bold">
-					Welcome to{" "}
-					<a className="text-blue-600" href="https://nextjs.org">
-						Next.js!
+			<div className={"container"}>
+				<div className={"text-center"}>
+					<Image alt={"Tailwind CSS Builder"} className={"block"} height={180} src={"/logo.png"} width={500} />
+				</div>
+
+				{alert && <Alert onClose={() => setAlert(null)} text={alert.text} type={alert.type} />}
+
+				<h1 className={"mb-2 text-2xl font-bold font-heading"}>
+					Tailwind Configuration
+					<a className={"ml-2 text-green-500"} href={"https://tailwindcss.com/docs/configuration"} rel={"noreferrer"} target={"_blank"}>
+						(Documentation)
 					</a>
 				</h1>
 
-				<p className="mt-3 text-2xl">
-					Get started by editing <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">pages/index.js</code>
-				</p>
-
-				<div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-					<a className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600" href="https://nextjs.org/docs">
-						<h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-						<p className="mt-4 text-xl">Find in-depth information about Next.js features and API.</p>
-					</a>
-
-					<a className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600" href="https://nextjs.org/learn">
-						<h3 className="text-2xl font-bold">Learn &rarr;</h3>
-						<p className="mt-4 text-xl">Learn about Next.js in an interactive course with quizzes!</p>
-					</a>
-
-					<a
-						className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-						href="https://github.com/vercel/next.js/tree/master/examples"
-					>
-						<h3 className="text-2xl font-bold">Examples &rarr;</h3>
-						<p className="mt-4 text-xl">Discover and deploy boilerplate example Next.js projects.</p>
-					</a>
-
-					<a
-						className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-						href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-					>
-						<h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-						<p className="mt-4 text-xl">Instantly deploy your Next.js site to a public URL with Vercel.</p>
-					</a>
+				<div className={"mb-2"}>
+					<Editor onChange={setConfig} value={config} />
 				</div>
-			</main>
 
-			<footer className="flex items-center justify-center w-full h-24 border-t">
-				<a
-					className="flex items-center justify-center"
-					href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-					rel="noopener noreferrer"
-					target="_blank"
-				>
-					Powered by <Image alt="Vercel Logo" className="h-4 ml-2" height={"24px"} src="/vercel.svg" width={"69px"} />
-				</a>
-			</footer>
+				<Button loading={loading} onClick={process} title={"Process Configuration"} />
+
+				{result && (
+					<>
+						<Button danger onClick={() => setResult(null)} title={"Reset"} />
+						<div className={"my-6"}>
+							<h1 className={"mb-2 text-2xl font-bold font-heading"}>Result</h1>
+							<div className={"mb-2"}>
+								<Editor readOnly value={result} />
+							</div>
+						</div>
+					</>
+				)}
+			</div>
 		</div>
 	);
-}
+};
+
+export default Home;
