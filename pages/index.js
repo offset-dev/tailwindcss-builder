@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -19,10 +20,14 @@ const Home = () => {
 		setAlert(false);
 		setLoading(true);
 
-		window.setTimeout(() => {
-			setLoading(false);
-			setResult("RESULTS");
-		}, 3000);
+		axios
+			.post("./api/process", {
+				config: JSON.stringify(config),
+			})
+			.then(res => {
+				setLoading(false);
+				setResult(res.data);
+			});
 	};
 
 	return (
@@ -56,9 +61,24 @@ const Home = () => {
 					<>
 						<Button danger onClick={() => setResult(null)} title={"Reset"} />
 						<div className={"my-6"}>
-							<h1 className={"mb-2 text-2xl font-bold font-heading"}>Result</h1>
+							<h1 className={"mb-2 text-2xl font-bold font-heading"}>
+								Result{" "}
+								<button
+									className={"ml-2 text-green-500 font-bold"}
+									onClick={() => {
+										const newWindow = window.open(
+											"",
+											"Tailwind CSS",
+											"toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,"
+										);
+										newWindow.document.body.innerText = result;
+									}}
+								>
+									(Open in new Window)
+								</button>
+							</h1>
 							<div className={"mb-2"}>
-								<Editor readOnly value={result} />
+								<Editor mode={"css"} readOnly value={result} />
 							</div>
 						</div>
 					</>
