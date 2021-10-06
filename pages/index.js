@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 
 import Alert from "../components/Alert";
 import Button from "../components/Button";
+import Checkbox from "../components/Checkbox";
 import defaultConfig from "../constants/default-config";
 
 const Editor = dynamic(() => import("../components/Editor"), { ssr: false });
@@ -15,6 +16,7 @@ const Home = () => {
 	const [alert, setAlert] = useState(null);
 	const [config, setConfig] = useState(defaultConfig);
 	const [result, setResult] = useState(null);
+	const [minify, setMinify] = useState(true);
 
 	const process = () => {
 		setAlert(false);
@@ -23,6 +25,7 @@ const Home = () => {
 		axios
 			.post("./api/process", {
 				config: JSON.stringify(config),
+				minify,
 			})
 			.then(res => {
 				setLoading(false);
@@ -57,6 +60,8 @@ const Home = () => {
 				<div className={"mb-2"}>
 					<Editor onChange={setConfig} value={config} />
 				</div>
+
+				<Checkbox label="Minify" checked={minify} onChange={e => setMinify(e.target.checked)} loading={loading} labelClassName="mr-2" />
 
 				<Button loading={loading} onClick={process} title={"Process Configuration"} />
 
