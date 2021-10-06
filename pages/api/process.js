@@ -15,7 +15,8 @@ export default async function process(req, res) {
 	await fs.writeFileSync(settings, JSON.parse(req.body.config));
 
 	// Process
-	const processor = postcss([tailwind(settings), autoprefixer(), cssnano()]);
+	const shouldDisableMinification = !req.body.minify;
+	const processor = postcss([tailwind(settings), autoprefixer(), ...(shouldDisableMinification ? [] : [cssnano()])]);
 	const result = await processor.process("@tailwind base;@tailwind components;@tailwind utilities;");
 
 	// Delete Files
