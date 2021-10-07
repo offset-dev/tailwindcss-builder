@@ -61,7 +61,7 @@ const Home = () => {
 					<Editor onChange={setConfig} value={config} />
 				</div>
 
-				<Checkbox label="Minify" checked={minify} onChange={e => setMinify(e.target.checked)} loading={loading} labelClassName="mr-2" />
+				<Checkbox checked={minify} label="Minify" labelClassName="mb-2 max-w-max" loading={loading} onChange={e => setMinify(e.target.checked)} />
 
 				<Button loading={loading} onClick={process} title={"Process Configuration"} />
 
